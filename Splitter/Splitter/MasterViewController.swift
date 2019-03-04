@@ -13,7 +13,7 @@ class MasterViewController: UITableViewController {
     
     //Because of adding own code to viewDidLoad, will not need the following variables
     //Also, because data will be coming from the imageArray in the static data
-    var detailViewController: DetailViewController? = nil
+    var detailViewController: ImagePresentationVC? = nil
     var objects = [Any]()
 
 
