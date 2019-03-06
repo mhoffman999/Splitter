@@ -13,8 +13,8 @@ class MasterViewController: UITableViewController {
     
     //Because of adding own code to viewDidLoad, will not need the following variables
     //Also, because data will be coming from the imageArray in the static data
-    var detailViewController: ImagePresentationVC? = nil
-    var objects = [Any]()
+//    var detailViewController: ImagePresentationVC? = nil
+//    var objects = [Any]()
 
 
     override func viewDidLoad() {
@@ -51,17 +51,20 @@ class MasterViewController: UITableViewController {
     
     // MARK: - Segues
 
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showDetail" {
-//            if let indexPath = tableView.indexPathForSelectedRow {
-//                let object = objects[indexPath.row] as! NSDate
-//                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-//                controller.detailItem = object
-//                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-//                controller.navigationItem.leftItemsSupplementBackButton = true
-//            }
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                //let object = objects[indexPath.row] as! NSDate
+                let controller = (segue.destination as! UINavigationController).topViewController as! ImagePresentationVC //changed from detailViewController
+                //This pulls the image for the tapped cell
+                controller.image = imageArray[indexPath.row] //changed from "detailItem" to project created variable
+                
+                //This code creates the "-><-" button on the rotated split-screen to enlarge the image and returnit to the master VC
+                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                controller.navigationItem.leftItemsSupplementBackButton = true
+            }
+        }
+    }
 
     // MARK: - Table View
 
@@ -82,6 +85,25 @@ class MasterViewController: UITableViewController {
         cell.textLabel!.text = namesArray[indexPath.row]
         cell.backgroundColor = colorsArray[indexPath.row]
         return cell
+    }
+    
+    //This func is only called for the aesthetics of the tableview cell
+    //Without calling this func, the tapped cell would stay "grayed-out" until another selection was made
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
+    
+    //This func will allows viewer to see all of the available cells in portrait &landscape orientation
+    //Asks for the specific height to make each cell, which can be defined by an actual number or by calculating versus tableview height and some other info
+    //If the Storyboard has a given tableview height constant, uncheck it (and the any cell height constant)
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //Needed if the controllers are showing a navigation bar 
+        if let navBarHeight = navigationController?.navigationBar.frame.height {
+            return (tableView.frame.height - navBarHeight) / (CGFloat(imageArray.count))
+        } else {
+            return (tableView.frame.height - 50) / (CGFloat(imageArray.count))
+        }
     }
 
 /*
