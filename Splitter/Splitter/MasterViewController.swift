@@ -98,7 +98,7 @@ class MasterViewController: UITableViewController {
     //Asks for the specific height to make each cell, which can be defined by an actual number or by calculating versus tableview height and some other info
     //If the Storyboard has a given tableview height constant, uncheck it (and the any cell height constant)
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //Needed if the controllers are showing a navigation bar 
+        //Needed if the controllers are showing a navigation bar
         if let navBarHeight = navigationController?.navigationBar.frame.height {
             return (tableView.frame.height - navBarHeight) / (CGFloat(imageArray.count))
         } else {
