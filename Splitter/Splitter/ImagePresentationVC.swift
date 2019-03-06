@@ -37,6 +37,7 @@ class ImagePresentationVC: UIViewController {
         //configureView()
         
         itemImageView.image = image
+        
     }
 
 

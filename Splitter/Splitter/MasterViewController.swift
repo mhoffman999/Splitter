@@ -20,6 +20,11 @@ class MasterViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //To set the title for the split screen full-view back button
+        //Set the title for the primary navigation controller's (MasterVC's) root view controller (the back button of the DetailVC inherits its title from there)
+        //Or, in Storyboard, click nav controller top bar and look for View Controller->"Title" under Attributes)
+        navigationController?.title = "Collapse"
 /*
         navigationItem.leftBarButtonItem = editButtonItem
 
@@ -62,9 +67,16 @@ class MasterViewController: UITableViewController {
                 //This code creates the "-><-" button on the rotated split-screen to enlarge the image and returnit to the master VC
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
+                
             }
         }
     }
+    
+    //Navigation Bar Title
+    
+//    func changeNavBarTitle {
+//        let navLeft =
+//    }
 
     // MARK: - Table View
 
